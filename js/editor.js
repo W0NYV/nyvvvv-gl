@@ -1,6 +1,9 @@
 let defaultFrag = `#version 300 es
 precision highp float;
 
+uniform vec2 resolution;
+uniform float time;
+
 out vec4 fragColor;
 
 void main(){
@@ -19,6 +22,5 @@ editor.getSession().setMode("ace/mode/glsl");
 editor.setValue(defaultFrag);
 
 editor.getSession().on('change', function() {
-    init();
-    // console.log(editor.getSession().getValue());
+    execution();
 });

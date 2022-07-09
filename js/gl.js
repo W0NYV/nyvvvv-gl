@@ -1,19 +1,34 @@
+let beginTime,
+    nowTime;
+
 window.addEventListener('DOMContentLoaded', () => {
 
-    init();
+    execution();
 
 }, false);
 
-function init() {
+function execution() {
 
-    const canvas = getCanvas('webgl-canvas');
-    const gl = getGLContext(canvas);
+        beginTime = Date.now();
 
-    gl.clearColor(0, 0, 0, 1);
+        const canvas = getCanvas('webgl-canvas');
+        const gl = getGLContext(canvas);
 
-    const program = createProgram(gl);
-    const buffers = createRectBuffers(gl);
-    draw(gl, program, buffers);
+    if(getShader(gl, 'frag')) {
+
+        gl.clearColor(0, 0, 0, 1);
+    
+        const program = createProgram(gl);
+        const buffers = createRectBuffers(gl);
+    
+        function render() {
+            requestAnimationFrame(render);
+            nowTime = (Date.now() - beginTime) / 1000.0;
+            draw(gl, program, buffers);
+        }
+    
+        render();
+    }
 
 }
 
@@ -37,7 +52,6 @@ function getShader(gl, type) {
     if(type === 'vert') {
 
         const script = document.getElementById('vertex-shader');
-        console.log(script);
         shaderString = script.text.trim();
     
         if(script.type === 'x-shader/x-vertex') {
@@ -60,8 +74,6 @@ function getShader(gl, type) {
     if(!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         console.error(gl.getShaderInfoLog(shader));
         return null;
-    } else {
-        console.log("OK");
     }
 
     return shader;
@@ -85,6 +97,9 @@ function createProgram(gl) {
     gl.useProgram(program);
 
     program.aVertexPosition = gl.getAttribLocation(program, 'aVertexPosition');
+
+    program.time = gl.getUniformLocation(program, 'time');
+    program.resolution = gl.getUniformLocation(program, 'resolution');
 
     return program;
 }
@@ -117,6 +132,9 @@ function draw(gl, program, buffers) {
     
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+    gl.uniform2fv(program.resolution, [gl.canvas.width, gl.canvas.height]);
+    gl.uniform1fv(program.time, [nowTime]);
     
     gl.bindBuffer(gl.ARRAY_BUFFER, buffers[0]);
     gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
