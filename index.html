@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>nyvvvv-gl</title>
+
+    <script type="text/javascript" src="./lib/ace/ace.js"></script>
+    <script type="text/javascript" src="./lib/ace/ext-language_tools.js"></script>
+    <script type="text/javascript" src="./js/gl.js"></script>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        #version 300 es
+        precision mediump float;
+
+        in vec3 aVertexPosition;
+
+        void main(void) {
+            gl_Position = vec4(aVertexPosition, 1.0);
+        }
+    </script>
+
+</head>
+<body>
+    <h1>nyvvvv-gl</h1>
+    <canvas id="webgl-canvas"></canvas>
+    <div id="editor" style="height: 600px"></div>
+    <script type="text/javascript" src="./js/editor.js"></script>
+
+</body>
+</html>
