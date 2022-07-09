@@ -7,17 +7,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
 }, false);
 
+window.addEventListener('resize', () => resize(getCanvas('webgl-canvas')), false);
+
 function execution() {
 
         beginTime = Date.now();
 
         const canvas = getCanvas('webgl-canvas');
+        resize(canvas);
+        
         const gl = getGLContext(canvas);
 
     if(getShader(gl, 'frag')) {
 
-        gl.clearColor(0, 0, 0, 1);
-    
+        gl.clearColor(0, 0, 1, 1);
+
         const program = createProgram(gl);
         const buffers = createRectBuffers(gl);
     
@@ -147,4 +151,13 @@ function draw(gl, program, buffers) {
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
     
+}
+
+const resize = (canvas) => {
+    
+    console.log(window.innerWidth);
+    console.log(window.innerHeight);
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }

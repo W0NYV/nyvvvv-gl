@@ -2,11 +2,14 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>nyvvvv-gl</title>
 
     <script type="text/javascript" src="./lib/ace/ace.js"></script>
     <script type="text/javascript" src="./lib/ace/ext-language_tools.js"></script>
     <script type="text/javascript" src="./js/gl.js"></script>
+
+    <link rel="stylesheet" href="./css/style.css">
 
     <script id="vertex-shader" type="x-shader/x-vertex">
         #version 300 es
@@ -21,10 +24,8 @@
 
 </head>
 <body>
-    <h1>nyvvvv-gl</h1>
     <canvas id="webgl-canvas"></canvas>
-    <div id="editor" style="height: 600px"></div>
+    <div id="editor"></div>
     <script type="text/javascript" src="./js/editor.js"></script>
-
 </body>
 </html>

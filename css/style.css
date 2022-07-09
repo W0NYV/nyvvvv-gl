@@ -1,0 +1,22 @@
+html, body {
+    overflow: hidden;
+}
+
+body {
+    margin: 0%;
+}
+
+#editor {
+    position: fixed;
+    inset: 0;
+    background: none;
+}
+
+.ace-tm .ace_gutter {
+    background: none;
+}
+
+.ace-tm .ace_print-margin {
+    width: 0px; 
+    background: none;
+}
