@@ -1,37 +1,77 @@
-let beginTime,
+let gl,
+    texture,
+    beginTime,
     nowTime;
 
 window.addEventListener('DOMContentLoaded', () => {
 
-    execution();
+    const canvas = getCanvas('webgl-canvas');
+    resize(canvas);
+    
+    gl = getGLContext(canvas);
+
+    createTexture(gl, '../lib/sea.jpg').then(tex => {
+        texture = tex;
+        execution();
+    });
 
 }, false);
 
 window.addEventListener('resize', () => resize(getCanvas('webgl-canvas')), false);
 
+window.addEventListener('dragover', e => {
+    e.stopPropagation();
+    e.preventDefault();
+});
+
+window.addEventListener('dragleave', e => {
+    e.stopPropagation();
+    e.preventDefault();
+})
+
+window.addEventListener('drop', e => {
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    let files = e.dataTransfer.files;
+    
+    if(files.length > 1) return alert('ONLY 1 FLIE');
+    
+    const reader = new FileReader();
+
+    reader.onload = e => {
+        
+        createTexture(gl, e.target.result).then(tex => {
+            texture = tex;
+        });
+    }
+
+    reader.readAsDataURL(files[0]);
+
+}, false);
+
 function execution() {
 
-        beginTime = Date.now();
-
-        const canvas = getCanvas('webgl-canvas');
-        resize(canvas);
-        
-        const gl = getGLContext(canvas);
+    beginTime = Date.now();
 
     if(getShader(gl, 'frag')) {
 
         gl.clearColor(0, 0, 1, 1);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
         const program = createProgram(gl);
+        
         const buffers = createRectBuffers(gl);
-    
+
         function render() {
             requestAnimationFrame(render);
             nowTime = (Date.now() - beginTime) / 1000.0;
-            draw(gl, program, buffers);
+            draw(gl, program, buffers, texture);
         }
     
         render();
+
     }
 
 }
@@ -104,6 +144,7 @@ function createProgram(gl) {
 
     program.time = gl.getUniformLocation(program, 'time');
     program.resolution = gl.getUniformLocation(program, 'resolution');
+    program.sampler = gl.getUniformLocation(program, 'sampler');
 
     return program;
 }
@@ -132,7 +173,11 @@ function createRectBuffers(gl) {
     return [vertexBuffer, indexBuffer, indices];
 }
 
-function draw(gl, program, buffers) {
+function draw(gl, program, buffers, texture) {
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.uniform1i(program.sampler, 0);
     
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -153,11 +198,26 @@ function draw(gl, program, buffers) {
     
 }
 
-const resize = (canvas) => {
-    
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
+function createTexture(gl, path) {
 
+    return new Promise((resolve) => {
+        const texture = gl.createTexture();
+        const image = new Image();
+        image.src = path;
+    
+        image.onload = () => {
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+            gl.bindTexture(gl.TEXTURE_2D, null);
+            resolve(texture);
+        }
+    });
+
+}
+
+const resize = (canvas) => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }

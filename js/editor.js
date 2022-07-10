@@ -3,12 +3,13 @@ precision highp float;
 
 uniform vec2 resolution;
 uniform float time;
+uniform sampler2D sampler;
 
 out vec4 fragColor;
 
 void main() {
-  vec2 p = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
-  fragColor = vec4(p, 0.0, 1.0);
+  vec2 uv = gl_FragCoord.xy / resolution.xy;
+  fragColor = texture(sampler, uv);
 }`;
 
 let editor = ace.edit("editor");

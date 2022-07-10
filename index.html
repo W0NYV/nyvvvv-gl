@@ -16,8 +16,12 @@
         precision mediump float;
 
         in vec3 aVertexPosition;
+        out vec2 vTexCoord;
 
         void main(void) {
+
+            vTexCoord = aVertexPosition.xy;
+
             gl_Position = vec4(aVertexPosition, 1.0);
         }
     </script>
