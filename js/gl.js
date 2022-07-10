@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
     gl = getGLContext(canvas);
 
-    createTexture(gl, '../lib/sea.jpg').then(tex => {
+    createTexture(gl, './lib/sea.jpg').then(tex => {
         texture = tex;
         execution();
     });
