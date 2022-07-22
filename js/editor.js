@@ -28,6 +28,6 @@ editor.getSession().setMode("ace/mode/glsl");
 editor.setValue(defaultFrag);
 editor.setOption("showInvisibles", true);
 
-editor.getSession().on('change', function() {
-    execution();
-});
+// editor.getSession().on('change', function() {
+//     execution();
+// });

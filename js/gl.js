@@ -27,7 +27,7 @@ window.addEventListener('dragover', e => {
 window.addEventListener('dragleave', e => {
     e.stopPropagation();
     e.preventDefault();
-})
+});
 
 window.addEventListener('drop', e => {
 
@@ -49,6 +49,14 @@ window.addEventListener('drop', e => {
 
     reader.readAsDataURL(files[0]);
 
+}, false);
+
+window.addEventListener('keydown', e => {
+    if(e.altKey === true) {
+        if(e.code === 'Enter') {
+            execution();
+        }
+    }
 }, false);
 
 function execution() {
