@@ -21,7 +21,7 @@ editor.setOptions({
     // enableBasicAutocompletion: true,
     // enableLiveAutocompletion: true,
     
-    fontSize: "12.5pt"
+    fontSize: "10.5pt"
 });
 editor.getSession().setTabSize(2);
 editor.getSession().setMode("ace/mode/glsl");
