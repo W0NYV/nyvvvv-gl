@@ -23,9 +23,10 @@ editor.setOptions({
     
     fontSize: "10.5pt"
 });
+
+editor.setValue(defaultFrag, 1);
 editor.getSession().setTabSize(2);
 editor.getSession().setMode("ace/mode/glsl");
-editor.setValue(defaultFrag);
 editor.setOption("showInvisibles", true);
 
 // editor.getSession().on('change', function() {
