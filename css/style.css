@@ -55,6 +55,11 @@ body {
     color: #bbffff !important;
 }
 
+.ace_comment {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+    color: #ffffbb !important;
+}
+
 .ace_invisible {
     color: transparent !important;
 }
