@@ -107,7 +107,8 @@ function getShader(gl, type) {
     } else if(type === 'frag') {
 
         const script = editor.getSession().getValue();
-        shaderString = script.trim();
+        shaderString = "#version 300 es\n" + script;
+        shaderString = shaderString.trim();
 
         shader = gl.createShader(gl.FRAGMENT_SHADER);
     }

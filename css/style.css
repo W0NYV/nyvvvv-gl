@@ -20,3 +20,45 @@ body {
     width: 0px; 
     background: none;
 }
+
+.ace_keyword {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+    color: #ffbbff !important;
+}
+
+.ace_invisible_space {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+}
+
+.ace_operator {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+    color: azure !important;
+} 
+
+.ace_identifier {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+    color: azure !important;
+}
+
+.ace_function {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+    color: azure !important;
+}
+
+.ace_paren {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+    color: azure !important;
+}
+
+.ace_constant {
+    background: rgba(0.0, 0.0, 0.0, 0.3) !important;
+    color: #bbffff !important;
+}
+
+.ace_invisible {
+    color: transparent !important;
+}
+
+.ace_active-line {
+    background: none !important;
+}
