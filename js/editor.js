@@ -29,6 +29,51 @@ editor.getSession().setTabSize(2);
 editor.getSession().setMode("ace/mode/glsl");
 editor.setOption("showInvisibles", true);
 
-// editor.getSession().on('change', function() {
-//     execution();
-// });
+editor.getSession().on('change', function() {
+  if(isHyperCodingMode) {
+    console.log("hello");
+    AnimationA();
+  }
+});
+
+window.addEventListener('keydown', e => {
+  if(e.code === 'Enter') {
+    if(isHyperCodingMode) {
+      AnimationB();
+    }
+  }
+}, false);
+
+function AnimationA() {
+
+  let x = (Math.random() - 0.5) * 200;
+  let y = (Math.random() - 0.5) * 100;
+
+  document.getElementById('webgl-canvas').animate(
+    {
+      transform: [
+        "translate(0,0)",
+        "translate(" + x + "px, " + y + "100px)",
+        "translate(0,0)"
+      ]
+    }, 
+    100
+  );
+}
+
+function AnimationB() {
+  document.getElementById('editor').animate(
+    {
+      background: [
+        "none",
+        "#fff",
+        "none",
+        "#fff",
+        "none",
+        "#fff",
+        "none"
+      ]
+    }, 
+    300
+  );
+}

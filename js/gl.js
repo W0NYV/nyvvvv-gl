@@ -3,6 +3,8 @@ let gl,
     beginTime,
     nowTime;
 
+let isHyperCodingMode = false;
+
 window.addEventListener('DOMContentLoaded', () => {
 
     const canvas = getCanvas('webgl-canvas');
@@ -55,6 +57,15 @@ window.addEventListener('keydown', e => {
     if(e.altKey === true) {
         if(e.code === 'Enter') {
             execution();
+        }
+    }
+}, false);
+
+window.addEventListener('keydown', e => {
+    if(e.altKey === true) {
+        if(e.code === 'KeyH') {
+            console.log("ハイパーコーディングモード起動");
+            isHyperCodingMode = !isHyperCodingMode;
         }
     }
 }, false);
